@@ -2,7 +2,7 @@ const http = require('http');
 
 const server = http.createServer((req, res) => {
     // ✅ CORS (IMPORTANT for frontend)
-    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+    res.setHeader('Access-Control-Allow-Origin', 'https://minihackclass.onrender.com/');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -81,5 +81,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(3000, () => {
-    console.log("🚀 Server running on http://localhost:3000");
+    console.log("Server running on https://minihack-class-24.onrender.com");
 });
