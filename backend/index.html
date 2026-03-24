@@ -5,7 +5,6 @@
     <title>Login Demo</title>
 </head>
 <body>
-
     <h2>Login System</h2>
 
     <input type="text" id="username" placeholder="Username"><br><br>
@@ -54,10 +53,12 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        alert("Login successful!");
+                        alert('Login successful!');
+                        document.getElementById('username').value = '';
+                        document.getElementById('password').value = '';
                         checkStatus();
                     } else {
-                        alert("Login failed!");
+                        alert('Login failed!');
                     }
                 }
             };
@@ -73,7 +74,7 @@
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
-                    alert("Logged out!");
+                    alert('Logged out!');
                     checkStatus();
                 }
             };
@@ -89,10 +90,10 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        const res = JSON.parse(xhr.responseText);
-                        alert(res.message);
+                        const response = JSON.parse(xhr.responseText);
+                        alert(response.message);
                     } else {
-                        alert("Not logged in!");
+                        alert('Not logged in!');
                         checkStatus();
                     }
                 }
@@ -104,6 +105,5 @@
 
         checkStatus();
     </script>
-
 </body>
 </html>
