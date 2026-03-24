@@ -1,20 +1,19 @@
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-    // ✅ CORS (IMPORTANT for frontend)
+    
     res.setHeader('Access-Control-Allow-Origin', 'https://minihackclass.onrender.com/');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
 
-    // ✅ Handle preflight
+  
     if (req.method === 'OPTIONS') {
         res.writeHead(204);
         res.end();
         return;
     }
 
-    // ✅ CHECK LOGIN STATUS
     if (req.url === '/httponly-cookie/check' && req.method === 'GET') {
         const cookie = req.headers.cookie;
 
@@ -27,7 +26,7 @@ const server = http.createServer((req, res) => {
         }
     }
 
-    // ✅ LOGIN
+
     else if (req.url === '/httponly-cookie/login' && req.method === 'POST') {
         let body = '';
 
@@ -38,8 +37,8 @@ const server = http.createServer((req, res) => {
 
             if (username === 'admin' && password === '4444') {
                 res.writeHead(200, {
-                    // 🔥 Removed Secure for local testing
-                    'Set-Cookie': 'token=R99R; HttpOnly; Path=/',
+                    
+                    'Set-Cookie': 'token=R99R; HttpOnly; Path=/; SameSite=None; Secure',
                     'Content-Type': 'application/json'
                 });
 
@@ -52,7 +51,7 @@ const server = http.createServer((req, res) => {
         });
     }
 
-    // ✅ PROTECTED ROUTE
+
     else if (req.url === '/httponly-cookie/something' && req.method === 'GET') {
         const cookie = req.headers.cookie;
 
@@ -65,7 +64,7 @@ const server = http.createServer((req, res) => {
         }
     }
 
-    // ✅ LOGOUT
+
     else if (req.url === '/httponly-cookie/logout' && req.method === 'POST') {
         res.writeHead(200, {
             'Set-Cookie': 'token=; HttpOnly; Path=/; Max-Age=0'
@@ -73,7 +72,7 @@ const server = http.createServer((req, res) => {
         res.end();
     }
 
-    // ❌ NOT FOUND
+
     else {
         res.writeHead(404);
         res.end();
