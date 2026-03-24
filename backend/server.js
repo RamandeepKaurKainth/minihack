@@ -1,13 +1,12 @@
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-    
-    res.setHeader('Access-Control-Allow-Origin', 'https://minihackclass.onrender.com/');
+    // Must be your FRONTEND URL, not backend URL
+    res.setHeader('Access-Control-Allow-Origin', 'https://minihackclass.onrender.com');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
 
-  
     if (req.method === 'OPTIONS') {
         res.writeHead(204);
         res.end();
@@ -26,7 +25,6 @@ const server = http.createServer((req, res) => {
         }
     }
 
-
     else if (req.url === '/httponly-cookie/login' && req.method === 'POST') {
         let body = '';
 
@@ -37,20 +35,18 @@ const server = http.createServer((req, res) => {
 
             if (username === 'admin' && password === '4444') {
                 res.writeHead(200, {
-                    
                     'Set-Cookie': 'token=R99R; HttpOnly; Path=/; SameSite=None; Secure',
                     'Content-Type': 'application/json'
                 });
 
                 res.end(JSON.stringify({ message: 'Logged in' }));
-                console.log("✅ Logged in");
+                console.log('Logged in');
             } else {
                 res.writeHead(401);
                 res.end();
             }
         });
     }
-
 
     else if (req.url === '/httponly-cookie/something' && req.method === 'GET') {
         const cookie = req.headers.cookie;
@@ -64,14 +60,12 @@ const server = http.createServer((req, res) => {
         }
     }
 
-
     else if (req.url === '/httponly-cookie/logout' && req.method === 'POST') {
         res.writeHead(200, {
-            'Set-Cookie': 'token=; HttpOnly; Path=/; Max-Age=0'
+            'Set-Cookie': 'token=; HttpOnly; Path=/; Max-Age=0; SameSite=None; Secure'
         });
         res.end();
     }
-
 
     else {
         res.writeHead(404);
@@ -79,6 +73,8 @@ const server = http.createServer((req, res) => {
     }
 });
 
-server.listen(3000, () => {
-    console.log("Server running on https://minihack-class-24.onrender.com");
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
 });
