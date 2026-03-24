@@ -1,7 +1,7 @@
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-    // Must be your FRONTEND URL, not backend URL
+    // Put your FRONTEND URL here
     res.setHeader('Access-Control-Allow-Origin', 'https://minihackclass.onrender.com');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
